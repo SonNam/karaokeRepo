@@ -20,8 +20,10 @@ from django.conf.urls.static import static
 from karaokeapp import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^home/$', views.index, name='index'),
+    url(r'^$', 'django.contrib.auth.views.login', name='login'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^karaokeapp/', include('karaokeapp.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,22 @@
-<html>
-Hi em yeu
-</html>
+{% extends "mainpage/base.html" %}
+{% load staticfiles %}
+{% block title %}
+	<title>Danh sách phòng</title>
+{% endblock %}
+{% block pagetitle %}
+<div class="page-title-heading">
+	<div class="page-title-icon">
+		<i class="pe-7s-notebook icon-gradient bg-mixed-hopes"> </i>
+	</div>
+	<div>
+		Thông tin phòng
+		<div class="page-title-subheading">Tình trạng các phòng đang hoạt động hay phòng trống hiện tại.</div>
+	</div>
+</div>
+<div class="page-title-actions">
+	<div class="d-inline-block dropdown">
+		<button type="button" aria-haspopup="true" aria-expanded="false"
+			class="btn-shadow btn btn-info">Thêm phòng</button>
+	</div>
+</div>
+{% endblock %}

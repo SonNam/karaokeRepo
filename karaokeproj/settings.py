@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from .dbsetting import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -73,19 +74,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'karaokeproj.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'NAME': 'karaokedb',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': 'Daonam1992',
-    }
-}
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -104,11 +92,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, '/karaokeproj/pictures')
 
 MEDIA_URL = '/karaokeproj/pictures/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'

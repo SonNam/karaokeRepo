@@ -1,0 +1,36 @@
+{% if data %}
+<ul class="pagination">
+<li class="page-item">    <!-- Jump to First Page -->
+{% if data.number != 1 %}
+   <li class="previous">
+      <a href="?page=1">
+        <span aria-hidden="true">&laquo;</span></a>
+{% else %}
+    <li class="previous disabled">
+    <a><span aria-hidden="true">&laquo;</span></a>
+{% endif %}
+</li>
+{% if data.number|add:'-4' > 1 %}
+    <li><a href="?page={{ data.number|add:'-5' }}">&hellip;</a></li>
+{% endif %}
+{% for i in data.paginator.page_range %}
+    {% if data.number == i %}
+        <li class="active">
+        <a href="javascript:void(0);" class="page-link">{{ i }}</a>
+        </li>
+    {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+{% endfor %}
+{% if data.paginator.num_pages > data.number|add:'4' %}
+    <li><a href="?page={{ data.number|add:'5' }}">&hellip;</a></li>
+{% endif %}
+<li class="page-item">  <!-- Jump to Last Page -->
+{% if data.number != data.paginator.num_pages %}
+  <li class="previous"> <a href="?page={{ data.paginator.num_pages }}">»</a></li>
+{% else %}
+    <li class="next disabled"><a>»</a>
+{% endif %}
+</li>
+</ul>
+{% endif %}
