@@ -1,0 +1,42 @@
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id = "bca123"aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle" style="color: blue;">Thêm phòng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'karaokeapp.addRoomInfo'%}" method="POST"
+					enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label>Tên phòng</label> <input type="text" name="name"
+								class="form-control" placeholder="Tên phòng">
+						</div>
+						<div class="form-group col-md-6">
+							<label>Trạng thái</label> <select name="status" id="inputState"
+							class="form-control">
+							{% for roomstatus in liststatuses %}
+    							<option value="{{roomstatus.id}}">{{roomstatus.status_name}}</option>
+							{% endfor %}
+						</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Ghi chú</label> <input type="text"
+								name="note" class="form-control"
+								placeholder="Ghi chú">
+						</div>
+					</div>
+					
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="submit" class="btn btn-primary">Lưu lại</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
