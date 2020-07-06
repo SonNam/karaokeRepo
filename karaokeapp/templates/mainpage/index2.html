@@ -26,68 +26,6 @@
 </div>
 {% endblock %}
 {% block content %}
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-    //When page loads...
-    $(".tab_content").hide(); //Hide all content
-    $("ul.tabs li:first").addClass("active").show(); //Activate first tab
-    $(".tab_content:first").show(); //Show first tab content
-
-    //On Click Event
-    $("ul.tabs li").click(function() {
-
-        $("ul.tabs li").removeClass("active"); //Remove any "active" class
-        $(this).addClass("active"); //Add "active" class to selected tab
-        $(".tab_content").hide(); //Hide all tab content
-
-        var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
-        tabType = $(activeTab).html().trim()
-        if( tabType == 'aaaaa') {
-          alert("abc");
-          $.ajax({
-            url: '/karaokeapp/getRoomByStatus/',
-            type: 'GET',
-            data:{'tabType':tabType,},
-            success: function(content) {
-            	$("#carName").replaceWith('<input type="text" name="car_name" id = "carName" class="form-control" value="'+ data.carName + '">');
-            }
-          });
-        }else{
-        	alert("1");
-        }
-        $(activeTab).fadeIn(); //Fade in the active ID content
-        return false;
-    });
-
-});
-
-</script>
-
-<ul class="tabs">
-    <li><a href="#today">Today</a></li>
-    <li><a href="#week">This Week</a></li>
-    <li><a href="#month">This Month</a></li>
-</ul>
-
-<div class="tab_container">
-
-<div id="today" class="tab_content">
-       aaaaa
-</div>
-
-<div id="week" class="tab_content">
-       bbbbbb
-</div>
-
-<div id="month" class="tab_content">
-       cccccc
-</div>
-
-</div>
-
 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
     <li class="nav-item">
         <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
@@ -407,3 +345,4 @@ $(document).ready(function() {
 	</div>
 </div>		
 {% endblock %} 
+				
