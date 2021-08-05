@@ -1,0 +1,103 @@
+pkg_pub_app_context.P_SET_APP_USER_ID(401);
+
+========== search text and insert log eBao ============
+SELECT DISTINCT name, type FROM all_source WHERE UPPER(text) LIKE UPPER('%p_check_error_log%');
+
+pkg_pub_scd_ci.p_log_error('begin p_collect_for_cul_rider_policy'); -- insert log to t_batch_log
+
+
+===========  run webpack =============================
+cd D:\FAP\agent_portal_repository\FubonAgentPortal\eDm\static\eDm\js
+npm uninstall webpack --save-dev (if need)
+npm install webpack@3.0.0 --save-dev
+npm i webpack-cli
+npm i -D webpack-merge
+npm install --save-dev clean-webpack-plugin
+npm run build_dev
+Ctrl + P on debug mod to open jpx file (source tab)
+
+
+
+========= Celery  ==========
+celery -A customerportal worker -l info
+
+or
+
+celery -A FubonAgentPortal worker -l info -P eventlet  (----- pip install eventlet if need)
+
+========== Create trigger for debugging =======
+
+create or replace trigger NAM_TEST
+    before update on t_prem_arap
+    for each row
+      declare
+      begin
+        if :old.fee_status = 0 and :new.fee_status = 2 then
+          p_throw_exception(1, 'tao bat duoc may roi nhe kkkk');
+        end if;
+end NAM_TEST;
+
+========= UL main flow ==============
+
+exit when v_fill_end_date <= n_fill_due_date or n_remain_premium_tmp <= 0 or v_policy_year >= v_must_pay_period;
+
+java.sql.SQLException: ORA-04098: trigger 'FUBON_DEV_UAT.NAM_TEST' is invalid and failed re-validation
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_ILP_PUB", line 2820
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_ILP_PUB", line 4930
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_ILP_CI", line 140
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_NB_INFORCE", line 2109
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_NB_INFORCE", line 2577
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_NB_INFORCE", line 3011
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_NB_INFORCE", line 4168
+ORA-06512: at "FUBON_DEV_UAT.PKG_LS_PM_NB_INFORCE", line 4418
+
+
+========= Revert commit =========
+stand on ELS-3685
+git revert -m 1 <commit-hash> 
+git push origin ELS-3685
+
+esc :q!     ==> exit vim
+
+-- 02375838801 uit
+
+
+===== Chat Bot ===================
+
+
+def callChatBotAPT(request, params, surl):
+    try:         
+        #response    = requests.get(settings.OTP_BASE_URL + surl, params=params, timeout=MAX_TIMEOUT)        
+        #result      = response.json() 
+        token = '765650af53d05a3ae9b26489c4e624c38c5b2c94'
+        headers = {'Authorization': 'Token {0}'.format(token),'Content-Type': 'application/json'}
+        params = {"phone_number": "0962613753", "name": "satusona", "language":"vi"}
+        result = requests.post(settings.OTP_BASE_URL + 'chatbot-api', data= json.dumps(params), headers=headers)
+        resultmesage = result.json()
+        jsonresultmesage = json.dumps(resultmesage)
+        return {'status' : resultmesage['status'],
+                'message': resultmesage['message'],                
+                } 
+    except Exception as exc:
+        return {'status' : False,
+                'message': 'Connection API error!',                
+                }
+
+				
+============== mysqlu ============
+
+mysql -ufap_uit -pfap_uitpwd -h10.41.241.15
+
+mysql -ufap_uat -pfap_uatpwd -h10.41.241.15
+
+mysql --user=fap_uat --password=fap_uatpwd --host=10.41.241.15 fap_uat < 
+
+
+========== Activate Bin ==========
+
+source /virtualenv/python3/bin/activate
+cmd : cd /virtualenv/python3/webapps/paymentportal_uat/build; sh stop.sh paymentportal uat;
+cd /virtualenv/python3/webapps/paymentportal_uat/build; sh start.sh paymentportal uat;
+
+
+
