@@ -1,0 +1,30 @@
+web guild: https://djangopy.org/how-to/handle-asynchronous-tasks-with-celery-and-django
+
+set scheduler to database:
+
+$ python manage.py shell
+>>> from django_celery_beat.models import PeriodicTask
+>>> PeriodicTask.objects.update(last_run_at=None)
+
+run worker:
+celery -A <your project name> worker -l info
+
+cd D:\Customer Portal\customer_portal_repository\customerportal> 
+celery -A customerportal worker -l info
+cd D:\FAP\agent_portal_repository\FubonAgentPortal
+celery -A FubonAgentPortal worker -l info  
+
+Run the celery beat process in new terminal with –scheduler:
+celery -A <project name> beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+cd D:\Customer Portal\customer_portal_repository\customerportal>
+celery -A customerportal beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+cd D:\FAP\agent_portal_repository\FubonAgentPortal
+celery -A FubonAgentPortal beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+
+set up to fix ValueError: need more than 0 values to unpack win 7-32 bit:
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproj.settings')
+os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')

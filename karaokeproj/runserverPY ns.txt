@@ -1,0 +1,63 @@
+S0nn@m0123
+################Django resource
+C:\Python34\Lib\site-packages\django
+
+############# root directory:
+D:\Django Project\mysite
+
+##############  start server
+python manage.py runserver
+
+###################  open shell
+python manage.py shell
+
+########### data migrate:
+
+python manage.py makemigrations
+python manage.py migrate application 0026_auto_20171121_1635
+
+-- delete all migrate file
+step 1: python manage.py migrate application zero
+step 2: delete all migrate file 
+step 3: python manage.py makemigrations
+
+-- delete migrate file from file specify (unmigrate 0027_auto_20171121_1634 file):
+python manage.py showmigrations
+python manage.py migrate application 0026_auto_20171121_1635
+step 2: delete file from 0027_auto_20171121_1634.py
+step 3: python manage.py makemigrations
+
+######### data query directly
+https://docs.djangoproject.com/en/1.8/topics/db/sql/#executing-custom-sql-directly
+
+######### create super admin
+python manage.py createsuperuser
+
+Username: admin
+Email address: admin@example.com
+Password: **********
+Password (again): *********
+Superuser created successfully
+
+
+############# multi language:
+python manage.py makemessages
+python manage.py compilemessages
+
+
+
+################## re migrate data:
+Delete your migrations folder
+In the database: DELETE FROM django_migrations WHERE app = 'application'
+
+You could alternatively just truncate this table.
+python manage.py makemigrations application
+python manage.py migrate
+This works 100% for me!
+
+{'label': _('Terminology Management'), 'icon':'icon-text-height','permissions': ('application.change_terminologymanagement'), 'models': [
+            {'label': _('Terminology Management'), 'url': ('application.terminologymanagement')},
+        ]},
+
+
+
